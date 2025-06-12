@@ -1,0 +1,166 @@
+:root {
+  --primary-color: #ff69b4; /* Hot Pink */
+  --secondary-color: #8a2be2; /* Blue Violet */
+  --background-light: #fbe6ff; /* Very light pink/purple */
+  --text-dark: #333;
+  --text-light: #fff;
+  --button-bg-yes: #4caf50; /* Green */
+  --button-bg-no: #f44336; /* Red */
+  --button-hover-yes: #45a049;
+  --button-hover-no: #e53935;
+  --box-shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--background-light),
+    var(--primary-color) 120%
+  );
+  font-family: "Nunito", sans-serif;
+  color: var(--text-dark);
+  overflow: hidden; /* Hide overflow for confetti */
+  position: relative;
+}
+
+.container {
+  background-color: var(--text-light);
+  border-radius: 25px;
+  padding: 40px 30px;
+  box-shadow: 0 15px 30px var(--box-shadow-color);
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  animation: fadeIn 1s ease-out forwards;
+  position: relative; /* Needed for z-index of image */
+  z-index: 1; /* Ensure container is above confetti */
+}
+
+.question-text {
+  font-family: "Pacifico", cursive;
+  font-size: 2.8em;
+  color: var(--secondary-color);
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main-image {
+  width: 250px;
+  height: 250px;
+  object-fit: contain; /* Ensures the GIF fits without cropping */
+  margin-bottom: 40px;
+  animation: slideIn 0.8s ease-out forwards;
+  transition: transform 0.3s ease-in-out; /* For slight bounce on image change */
+}
+
+.main-image:hover {
+  transform: scale(1.02); /* Slight bounce */
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 25px; /* Space between buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+}
+
+.yes-button,
+.no-button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.3em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.yes-button {
+  background-color: var(--button-bg-yes);
+  color: var(--text-light);
+}
+
+.yes-button:hover {
+  background-color: var(--button-hover-yes);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.no-button {
+  background-color: var(--button-bg-no);
+  color: var(--text-light);
+  position: absolute; /* Essential for making it move */
+  /* These properties will be set by JS, but good to have a default */
+  /* top: auto;
+    left: auto; */
+}
+
+.no-button:hover {
+  background-color: var(--button-hover-no);
+  /* Transform handled by JS for movement */
+}
+
+/* Confetti Canvas */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Behind the content */
+  pointer-events: none; /* Allows clicks to pass through */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .container {
+    padding: 30px 20px;
+  }
+  .question-text {
+    font-size: 2.2em;
+  }
+  .main-image {
+    width: 200px;
+    height: 200px;
+  }
+  .yes-button,
+  .no-button {
+    font-size: 1.1em;
+    padding: 12px 25px;
+  }
+  .button-group {
+    flex-direction: column; /* Stack buttons on very small screens */
+    gap: 15px;
+  }
+}
